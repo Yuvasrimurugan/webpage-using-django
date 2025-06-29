@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url("{% static 'images/bg.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .signup-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 400px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .signup-card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .signup-card form input,
+    .signup-card form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 38px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    button {
+      width: 100%;
+      background-color: #007bff;
+      border: none;
+      padding: 12px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    p a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  <div class="signup-card">
+    <h2>Signup</h2>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.first_name.label_tag }} {{ form.first_name }}
+      {{ form.last_name.label_tag }} {{ form.last_name }}
+      {{ form.username.label_tag }} {{ form.username }}
+      {{ form.email.label_tag }} {{ form.email }}
+
+      <div class="password-field">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        <span class="toggle-password" onclick="togglePassword('id_password')"></span>
+      </div>
+
+      <div class="password-field">
+        {{ form.confirm_password.label_tag }}
+        {{ form.confirm_password }}
+        <span class="toggle-password" onclick="togglePassword('id_confirm_password')"></span>
+      </div>
+
+      {{ form.user_type.label_tag }} {{ form.user_type }}
+      {{ form.profile_pic.label_tag }} {{ form.profile_pic }}
+      {{ form.address_line1.label_tag }} {{ form.address_line1 }}
+      {{ form.city.label_tag }} {{ form.city }}
+      {{ form.state.label_tag }} {{ form.state }}
+      {{ form.pincode.label_tag }} {{ form.pincode }}
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+  </div>
+</div>
+
+<script>
+  function togglePassword(fieldId) {
+    const input = document.getElementById(fieldId);
+    if (input) {
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  }
+</script>
+</body>
+</html>

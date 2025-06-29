@@ -1,0 +1,5 @@
+<h2>Welcome, Dr. {{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+<img src="{{ profile.profile_pic.url }}" width="150"><br>
+<p>Email: {{ profile.user.email }}</p>
+<p>Address: {{ profile.address_line1 }}, {{ profile.city }}, {{ profile.state }} - {{ profile.pincode }}</p>
+<p>User Type: {{ profile.user_type }}</p>
